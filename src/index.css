@@ -1,0 +1,173 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    -webkit-backface-visibility: hidden;
+}
+
+body * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.gameCardsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.gameCard{
+    margin: 20px;
+}
+
+.square {
+    float: left;
+    position: relative;
+    width: 33.3%;
+    padding-bottom : 33.3%;
+    background-color: #81C784;    
+}
+
+.dndTilesBoard, 
+.dndTilesBoardThumbnail {
+    position: relative;
+    /*height: 100%;    
+    width: 100%;*/
+    height: 400px;
+    width: 400px;
+    min-width: 100px;
+    min-height: 100px;
+    user-select: none;    
+}
+
+.dndTilesBoardThumbnail {
+    position: relative;
+    user-select: none;
+}
+
+
+@media all and (max-width: 400px) {
+    .dndTilesBoardThumbnail {
+        height: 250px;
+        width: 250px;
+    }
+}
+
+
+@media all and (min-width: 400px) {
+    .dndTilesBoardThumbnail {
+        position: relative;
+        height: 300px;
+        width: 300px;
+        margin: 0 auto;
+    }
+}
+
+.tile,
+.emptyTile {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    border-style: solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border-width: 1px;
+    box-sizing: border-box;   
+}
+
+.tile {
+    background-color: #C8E6C9;
+        border-color: #81C784;
+}
+
+.hidden {
+    display: none;
+}
+
+.emptyTile {
+    background-color: #81C784;
+    border-color: #81C784;
+}
+
+.draggable {
+}
+
+.draggingTile {
+    opacity: 0.7;
+}
+
+.dragOver{
+}
+
+.rightImage, .topImage, .leftImage, .bottomImage{
+    width: 50%;
+    height: 50%;
+    pointer-events: none;
+}
+
+.rightImage {
+    position: absolute;
+    right: 0;
+    /*top: 25%;*/
+    transform: scale(-1, 1) translate(0, 50%);
+}
+
+
+.topImage{
+    transform: rotate(90deg) translate(0%, -50%);
+    text-align: center;
+}
+
+.leftImage {
+    position: absolute;
+    left: 0;
+    /*top: 50%;*/
+    transform: translate(0%, 50%);
+}
+
+.bottomImage {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    transform: rotate(90deg) scale(-1, 1) translate(0, -50%);
+}
+
+.puzzlesList{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 40px 0 0 0;    
+}
+
+
+
+/*
+.dndTilesBoard {
+    position: abs;
+    
+width: 100%;
+    height: 100%;
+   
+ background-color: #81C784;
+    
+border-radius: 3px;
+    
+padding: 4px;
+    
+user-select: none;
+}
+
+
+.tile,
+.emptyTile {   
+ position: relative;    
+width: 33.3%;   
+ height: 33.3%;
+ float: left;    
+border-width: 1px;  
+  border-style: solid;
+   border-color: #81C784;   
+ border-radius: 5px;    
+box-sizing: border-box;
+}
+*/
