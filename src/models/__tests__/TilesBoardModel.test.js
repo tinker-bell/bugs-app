@@ -142,6 +142,15 @@ test('TileBoardModel.getTileKeysState', ()=> {
     }    
 });
 
+test('TileBoardModel.matchedPairsCount', ()=> {
+    const board = new TilesBoardModel();
+    const labels = ['A', 'B', 'C']; 
+    board.init(labels);
+    expect(board.pairsToMatchCount).toBe(labels.length);
+    expect(board.matchedPairsCount()).toBe(0);
+    board._orderTiles();
+    expect(board.matchedPairsCount()).toBe(labels.length);
+});
 
 
 

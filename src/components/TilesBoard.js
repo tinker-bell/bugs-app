@@ -5,6 +5,7 @@ import Tile from './Tile';
 var TilesBoard = React.createClass({
 
     render() {
+        console.log('render tileboard');
         var isPreview = this.props.isPreview;
         
         var createTile = function (tile) {
@@ -22,20 +23,18 @@ var TilesBoard = React.createClass({
         };
 
         var style = this.props.isPreview ? "dndTilesBoardThumbnail" : "dndTilesBoard";
-        var tiles =(this.state && this.state.tiles) ? this.state.tiles : this.props.gameModel.tilesBoard.getTiles(); 
+        var tiles = this.props.gameModel.tilesBoard.getTiles(); 
 
         return <div className={style}>{tiles.map(createTile.bind(this)) }</div>;
     },
 
     onSwapTiles(row, column) {
         this.props.gameModel.swapTile(row, column);
-        this.setState({ tiles: this.props.gameModel.tilesBoard.getTiles() });
-        //console.log('this.props.tilesSwapped');
-       // console.log(this.props.tilesSwap);
         
         if (this.props.tilesSwap){
             this.props.tilesSwap(this.props.gameModel);
         }
+        this.forceUpdate();
     }
 });
 

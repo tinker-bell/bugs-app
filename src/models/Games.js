@@ -19,6 +19,11 @@ export class Games {
             new GameModel(puzzle, tilesBoard);
     }
 
+    restartGame(puzzle){
+        this.storage.removeGame(puzzle.id);
+        //return new GameModel(puzzle,  new TilesBoardModel().init(puzzle.labels));
+    }
+
     saveGame(gameModel) {
         this.storage.saveGame(gameModel);
     }

@@ -11,6 +11,7 @@ class TilesBoardModel {
 
     init(labels, state = null) {
         this.labels = labels;
+        this.pairsToMatchCount = labels.filter(x => x !== null).length;
         this._placeLabels(this.tiles, labels);
         this.tiles = (state === null) ? this._mixTiles(this.tiles) : this._mixTilesByState(this.tiles, state);
 
@@ -19,6 +20,31 @@ class TilesBoardModel {
 
     getTileKeysState() {
         return Iter.toArray(this._items(this.tiles), x => x.key);
+    }
+
+    matchedPairsCount() {
+        var hasMatches = function (tile, row, column) {
+
+            if (tile.rightLabel) {
+                var rightTile = this._getTileBySide(this.tiles, row, column, "right");
+                return rightTile && rightTile.leftLabel && tile.rightLabel === rightTile.leftLabel;
+            }
+            if (tile.bottomLabel) {
+                var bottomTile = this._getTileBySide(this.tiles, row, column, "bottom");
+                return bottomTile && bottomTile.topLabel && tile.bottomLabel === bottomTile.topLabel;
+            }
+            return false;
+        }
+
+        var count = 0;
+        for (var row = 0; row < this.boardSize; row++) {
+            for (var column = 0; column < this.boardSize; column++) {
+                if (hasMatches.bind(this)(this.tiles[row][column], row, column)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     _createNewTiles(boardSize) {
@@ -88,12 +114,12 @@ class TilesBoardModel {
     }
 
     _mixTilesByState(tiles, state) {
-        // TODO: refactoring this and createNewTiles
+        // TODO: refactor this and createNewTiles
         var mixedTiles = [];
         var stateCopy = state.slice().reverse();
-        for (var row = 0; row < tiles[0].length; row++) {
+        for (var row = 0; row < this.boardSize; row++) {
             mixedTiles[row] = [];
-            for (var column = 0; column < tiles[0].length; column++) {
+            for (var column = 0; column < this.boardSize; column++) {
                 var keyFromState = stateCopy.pop();
                 if (keyFromState === undefined) {
                     throw Error("keyFromState is undefined");
@@ -110,6 +136,21 @@ class TilesBoardModel {
 
     _getTileByKey(tiles, key) {
         return Iter.find(this._items(tiles), x => x.key === key);
+    }
+
+    // for unit tests only
+    _orderTiles() {
+        var key = 0;
+        for (var row = 0; row < this.boardSize; row++) {
+            for (var column = 0; column < this.boardSize; column++) {
+                var tileByKey = this._getTileByKey(this.tiles, key);
+                var tile = this.tiles[row][column];
+                if (tile !== tileByKey) {
+                    this.swapTiles(tileByKey, tile);
+                }
+                key++;
+            }
+        }
     }
 
     swapWithEmpty(row, column) {
@@ -166,18 +207,18 @@ class TilesBoardModel {
             case "left":
                 return (column > 0) ? tiles[row][column - 1] : null;
             case "right":
-                return (column < tiles[0].length - 1) ? tiles[row][column + 1] : null;
+                return (column < this.boardSize - 1) ? tiles[row][column + 1] : null;
             case "top":
                 return (row > 0) ? tiles[row - 1][column] : null;
             default:
-                return (row < tiles[0].length - 1) ? tiles[row + 1][column] : null;
+                return (row < this.boardSize - 1) ? tiles[row + 1][column] : null;
         }
     }
 
     _placeLabels(tiles, labels) {
         var labelsReversed = labels.slice().reverse();
-        for (var row = 0; row < tiles[0].length; row++) {
-            for (var column = 0; column < tiles[0].length; column++) {
+        for (var row = 0; row < this.boardSize; row++) {
+            for (var column = 0; column < this.boardSize; column++) {
                 var tile = tiles[row][column];
                 if (tile.isEmpty) {
                     continue;

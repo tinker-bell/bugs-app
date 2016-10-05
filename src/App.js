@@ -1,14 +1,54 @@
 import React from 'react';
 import './App.css';
-import TilesBoardModel from './models/TilesBoardModel';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Header from './components/Header'
+import {fade} from 'material-ui/utils/colorManipulator';
+import {
+    cyan500, cyan700,
+    pinkA200,
+    grey100, grey300, grey400, grey500,
+    white, darkBlack, fullBlack,
+    greenA700, greenA400, green700, green600,
+    limeA400,
+    deepOrange500
+
+
+
+
+} from 'material-ui/styles/colors';
+
 
 const muiTheme = getMuiTheme({
+    palette: {
+        primary1Color: green700,
+        primary2Color: green600,
+        primary3Color: grey400,
+        accent1Color: deepOrange500,
+        accent2Color: grey100,
+        accent3Color: grey500,
+        textColor: darkBlack,
+        secondaryTextColor: fade(darkBlack, 0.54),
+        alternateTextColor: white,
+        canvasColor: white,
+        borderColor: grey300,
+        disabledColor: fade(darkBlack, 0.3),
+        pickerHeaderColor: cyan500,
+        clockCircleColor: fade(darkBlack, 0.07),
+        shadowColor: fullBlack,
+    },
+    appBar: {
+        height: 50,
+    },
+    tabs:{
+        backgroundColor: green600,
+    }
 
 });
 
+    // inkBar: {
+    //     backgroundColor: greenA400,
+    // }
 
 
 var App = React.createClass({
@@ -17,27 +57,15 @@ var App = React.createClass({
         router: React.PropTypes.object
     },
 
-    // getInitialState() {
-    //     // var tilesBoard = new TilesBoardModel();
-    //     // tilesBoard.init(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A', 'B', 'C', 'D', 'E']);
+    childContextTypes: {
+        muiTheme: React.PropTypes.object.isRequired,
+    },
 
-    //     // var board1 = new TilesBoardModel();
-    //     // board1.init(['A', 'B']);
-    //     // var board2 = new TilesBoardModel();
-    //     // board2.init(['A', 'C']);
-    //     // var board3 = new TilesBoardModel();
-    //     // board3.init(['D', 'E']);
-    //     // return {
-    //     //     tiles: tilesBoard.getTiles(),
-    //     //     tilesBoard: tilesBoard,
-    //     //     board1: board1,
-    //     //     board2: board2,
-    //     //     board3: board3,
-    //     // };
-    // },
+    getChildContext() {
+        return { muiTheme: getMuiTheme() };
+    },
 
     render() {
-        var currentRouteName = this.context.router;
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
@@ -55,16 +83,6 @@ var App = React.createClass({
 });
 
 export default App;
-
-                    // <div style={{ width: 200, height: 200 }}>
-                    //     <TilesBoard tilesBoard={this.state.tilesBoard} isThumbnail={false}/>
-                    // </div>
-                    // <div>Простой уровень</div>
-                    // <div className="gameCardsContainer">
-                    //     <GameCard key="1" tilesBoard={this.state.board1} title="#1" isThumbnail={true}/>
-                    //     <GameCard key="2" tilesBoard={this.state.board2} isThumbnail={true}/>
-                    //     <GameCard key="3" tilesBoard={this.state.board3} isThumbnail={true}/>
-                    // </div>
 
 
 

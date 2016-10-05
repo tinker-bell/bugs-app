@@ -1,5 +1,4 @@
 import React from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import PuzzleCard from './PuzzleCard';
 import {Games} from '../models/Games';
 import GameStorage from '../models/GameStorage';
@@ -8,8 +7,6 @@ import NotFound from './NotFound'
 import UIUtils from './UIUtils'
 import {Iter} from '../Utils'
 
-
-const muiTheme = getMuiTheme();
 
 const PuzzlesList = React.createClass({
     contextTypes: {
@@ -45,12 +42,20 @@ const PuzzlesList = React.createClass({
         };
 
         return <div>
-            <div className={'puzzlesList'}>
+            <div style={PuzzlesList.styles.container}>
                 { Iter.toArray(puzzleCards(games)) }
             </div>
         </div>;
-
     }
 });
+
+PuzzlesList.styles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    }
+};
 
 export default PuzzlesList;
