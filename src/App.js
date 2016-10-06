@@ -42,6 +42,9 @@ const muiTheme = getMuiTheme({
     },
     tabs:{
         backgroundColor: green600,
+    },
+    fab:{
+        color: deepOrange500,
     }
 
 });

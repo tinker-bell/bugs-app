@@ -12,7 +12,7 @@ class TilesBoardModel {
     init(labels, state = null) {
         this.labels = labels;
         this.pairsToMatchCount = labels.filter(x => x !== null).length;
-        this._placeLabels(this.tiles, labels);
+        this._placeLabels(labels);
         this.tiles = (state === null) ? this._mixTiles(this.tiles) : this._mixTilesByState(this.tiles, state);
 
         return this;
@@ -22,30 +22,6 @@ class TilesBoardModel {
         return Iter.toArray(this._items(this.tiles), x => x.key);
     }
 
-    matchedPairsCount() {
-        var hasMatches = function (tile, row, column) {
-
-            if (tile.rightLabel) {
-                var rightTile = this._getTileBySide(this.tiles, row, column, "right");
-                return rightTile && rightTile.leftLabel && tile.rightLabel === rightTile.leftLabel;
-            }
-            if (tile.bottomLabel) {
-                var bottomTile = this._getTileBySide(this.tiles, row, column, "bottom");
-                return bottomTile && bottomTile.topLabel && tile.bottomLabel === bottomTile.topLabel;
-            }
-            return false;
-        }
-
-        var count = 0;
-        for (var row = 0; row < this.boardSize; row++) {
-            for (var column = 0; column < this.boardSize; column++) {
-                if (hasMatches.bind(this)(this.tiles[row][column], row, column)) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
 
     _createNewTiles(boardSize) {
         var key = 0;
@@ -153,9 +129,43 @@ class TilesBoardModel {
         }
     }
 
+    getMatchedPairsCount() {
+        var hasMatch = function (tile, row, column, side) {
+            const neighbour = this.getTileNeighbor(row, column, side);
+            return tile.isMatching(neighbour, side);
+        };
+        hasMatch = hasMatch.bind(this);
+        
+        var count = 0;
+        for (var row = 0; row < this.boardSize; row++) {
+            for (var column = 0; column < this.boardSize; column++) {
+                const tile = this.tiles[row][column];
+                ["left", "bottom"].forEach(x => {
+                    if (hasMatch(tile, row, column, x)) {
+                        count++;
+                    }
+                });
+            }
+        }
+        return count;
+    }
+
     swapWithEmpty(row, column) {
-        var emptyPos = this.getPosition(this.emptyTile);
+        this.getTiles().forEach(x => x.showMatchOff());
+        const emptyPos = this.getPosition(this.emptyTile);
         this._swap(this.tiles, row, column, emptyPos.row, emptyPos.column)
+        var me = this.getByPosition(emptyPos.row, emptyPos.column);
+
+        var updateShowMatch = function (side) {
+            var neighbor = this.getTileNeighbor(emptyPos.row, emptyPos.column, side);
+            if (me.isMatching(neighbor, side)) {
+                me.showMatchOn();
+                neighbor.showMatchOn();
+            }
+        };
+        updateShowMatch = updateShowMatch.bind(this);
+
+        ["right", "left", "top", "bottom"].forEach(updateShowMatch);
     }
 
     swapTiles(tile1, tile2) {
@@ -191,35 +201,24 @@ class TilesBoardModel {
         return null;
     }
 
-    getTileNeighbor(tile, side) {
-        for (var row = 0; row < this.boardSize; row++) {
-            for (var column = 0; column < this.boardSize; column++) {
-                if (this.tiles[row][column] === tile) {
-                    return this._getTileBySide(this.tiles, row, column, side);
-                }
-            }
-        }
-        return null;
-    }
-
-    _getTileBySide(tiles, row, column, side) {
+    getTileNeighbor(row, column, side) {
         switch (side) {
             case "left":
-                return (column > 0) ? tiles[row][column - 1] : null;
+                return (column > 0) ? this.tiles[row][column - 1] : null;
             case "right":
-                return (column < this.boardSize - 1) ? tiles[row][column + 1] : null;
+                return (column < this.boardSize - 1) ? this.tiles[row][column + 1] : null;
             case "top":
-                return (row > 0) ? tiles[row - 1][column] : null;
+                return (row > 0) ? this.tiles[row - 1][column] : null;
             default:
-                return (row < this.boardSize - 1) ? tiles[row + 1][column] : null;
+                return (row < this.boardSize - 1) ? this.tiles[row + 1][column] : null;
         }
     }
 
-    _placeLabels(tiles, labels) {
+    _placeLabels(labels) {
         var labelsReversed = labels.slice().reverse();
         for (var row = 0; row < this.boardSize; row++) {
             for (var column = 0; column < this.boardSize; column++) {
-                var tile = tiles[row][column];
+                var tile = this.tiles[row][column];
                 if (tile.isEmpty) {
                     continue;
                 }
@@ -232,12 +231,12 @@ class TilesBoardModel {
                     continue;
                 }
 
-                var rightTile = this._getTileBySide(tiles, row, column, "right");
+                var rightTile = this.getTileNeighbor(row, column, "right");
                 if (rightTile !== null) {
                     tile.rightLabel = label;
                     rightTile.leftLabel = label;
                 } else {
-                    var bottomTile = this._getTileBySide(tiles, row, column, "bottom");
+                    var bottomTile = this.getTileNeighbor(row, column, "bottom");
                     if (bottomTile !== null) {
                         tile.bottomLabel = label;
                         bottomTile.topLabel = label;

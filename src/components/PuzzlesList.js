@@ -27,7 +27,7 @@ const PuzzlesList = React.createClass({
             for (var i = 0; i < games.length; i++) {
                 var game = games[i];
                 var linkToPlay = (!game.started) ? UIUtils.linkToPlayGame(game.puzzle) : null;
-                var linkToReplay = (game.started) ? UIUtils.linkToReplay(game.puzzle) : null;
+                var linkToReplay = (game.started) ? UIUtils.linkToPlayGame(game.puzzle) : null;
                 var linkToContinue = (game.started && !game.completed) ? UIUtils.linkToContinue(game.puzzle) : null;
 
                 yield <PuzzleCard key={key++}

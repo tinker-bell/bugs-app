@@ -13,26 +13,27 @@ var Tile = React.createClass({
     },
 
     render() {
+        var tile = this.props.tile;
 
-        var labels = function* (props) {
-            if (!props.isEmpty) {
-                if (props.topLabel) {
-                    yield <TileImage key="top" position="top" label={props.topLabel}/>;
+        var labels = function* (tile) {
+            if (!tile.isEmpty) {
+                if (tile.topLabel) {
+                    yield <TileImage key="top" position="top" label={tile.topLabel}/>;
                 }
-                if (props.bottomLabel) {
-                    yield <TileImage key="bottom" position="bottom" label={props.bottomLabel}/>;
+                if (tile.bottomLabel) {
+                    yield <TileImage key="bottom" position="bottom" label={tile.bottomLabel}/>;
                 }
-                if (props.leftLabel) {
-                    yield <TileImage key="left" position="left" label={props.leftLabel}/>;
+                if (tile.leftLabel) {
+                    yield <TileImage key="left" position="left" label={tile.leftLabel}/>;
                 }
-                if (props.rightLabel) {
-                    yield <TileImage key="right" position="right" label={props.rightLabel}/>;
+                if (tile.rightLabel) {
+                    yield <TileImage key="right" position="right" label={tile.rightLabel}/>;
                 }
             }
         };
 
         var class_name = "tile";
-        if (this.props.isEmpty) {
+        if (tile.isEmpty) {
             class_name = " emptyTile";
         }
         else if (this.state.isDragging) {
@@ -43,6 +44,10 @@ var Tile = React.createClass({
         }
         if (this.isDragOver) {
             class_name += " dragOver";
+        }
+
+        if (tile.showMatch) {
+            class_name += " matchedTile";            
         }
 
         var isPreview = this.props.isPreview;
@@ -57,9 +62,9 @@ var Tile = React.createClass({
                 onDragOver={isPreview ? null : this.onDragOver}
                 onDrop={isPreview ? null : this.onDrop}
                 onClick={isPreview ? null : this.onClick}>
-                {Iter.toArray(labels(this.props))}
+                {Iter.toArray(labels(tile)) }
             </div>
-        </div>;
+        </div >;
     },
 
 
@@ -74,7 +79,7 @@ var Tile = React.createClass({
     },
 
     onDrop(ev) {
-        if (this.props.isEmpty) {
+        if (this.props.tile.isEmpty) {
             var data = ev.dataTransfer.getData("text");
             var position = JSON.parse(data);
             this.props.swapTiles(position.row, position.column);
@@ -83,14 +88,14 @@ var Tile = React.createClass({
     },
 
     onDragOver(ev) {
-        if (this.props.isEmpty || this.state.isDragging) {
+        if (this.props.tile.isEmpty || this.state.isDragging) {
             ev.preventDefault();
         }
         //this.setState({isDragOver: true});
     },
 
     onDragEnter(ev) {
-        if (this.props.isEmpty || this.props.isDraggable) {
+        if (this.props.tile.isEmpty || this.props.isDraggable) {
             ev.preventDefault();
         }
     },

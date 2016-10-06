@@ -5,19 +5,14 @@ import Tile from './Tile';
 var TilesBoard = React.createClass({
 
     render() {
-        console.log('render tileboard');
         var isPreview = this.props.isPreview;
         
         var createTile = function (tile) {
             var canMove = !isPreview && tile.canMove();
             return <Tile key={tile.key}
+                tile={tile}
                 position={tile.position}
-                isEmpty={tile.isEmpty}
                 isDraggable={canMove}
-                topLabel={tile.topLabel}
-                bottomLabel={tile.bottomLabel}
-                rightLabel={tile.rightLabel}
-                leftLabel={tile.leftLabel}
                 swapTiles={this.onSwapTiles}
                 isPreview={isPreview}/>;
         };
@@ -25,7 +20,8 @@ var TilesBoard = React.createClass({
         var style = this.props.isPreview ? "dndTilesBoardThumbnail" : "dndTilesBoard";
         var tiles = this.props.gameModel.tilesBoard.getTiles(); 
 
-        return <div className={style}>{tiles.map(createTile.bind(this)) }</div>;
+
+        return <div className="blinkingBorder blinkingBorderTransparent"> <div className={style}>{tiles.map(createTile.bind(this)) }</div></div>;
     },
 
     onSwapTiles(row, column) {

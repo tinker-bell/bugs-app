@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper';
 import TilesBoard from './TilesBoard';
 import PuzzleLevelIndicator from './PuzzleLevelIndicator';
 import QuaterOverlay from './QuaterOverlay'
+import DoneAll  from 'material-ui/svg-icons/action/done-all';
 
 
 var PuzzleCard = React.createClass({
@@ -27,16 +28,21 @@ var PuzzleCard = React.createClass({
                     {this.playButton() }
                     {this.continueButton() }
                 </div>
-
-                <PuzzleLevelIndicator level={this.props.gameModel.puzzle.level}/>
+                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap', alignItems: 'center' }}>
+                    <PuzzleLevelIndicator level={this.props.gameModel.puzzle.level}/>
+                    { this.doneIndicator()} </div>
             </Paper>
         </div>
+    },
+
+    doneIndicator() {
+        return this.props.gameModel.completedFromState ? <DoneAll color={this.context.muiTheme.palette.accent1Color} style={{ marginLeft: '15px' }}/> : null;
     },
 
     // TODO think of smth better
     replayButton() {
         return this.props.linkToReplay ? <FloatingActionButton
-            backgroundColor={this.context.muiTheme.palette.primary2Color}
+            backgroundColor={this.context.muiTheme.fab.color}
             style={PuzzleCard.styles.fab}
             href={this.props.linkToReplay} >
             <AvReplay color={this.context.muiTheme.palette.alternateTextColor} /></FloatingActionButton> : null;
@@ -44,7 +50,7 @@ var PuzzleCard = React.createClass({
 
     playButton() {
         return this.props.linkToPlay ? <FloatingActionButton
-            backgroundColor={this.context.muiTheme.palette.primary2Color}
+            backgroundColor={this.context.muiTheme.fab.color}
             style={PuzzleCard.styles.fab}
             href={this.props.linkToPlay} >
             <AvPlay color={this.context.muiTheme.palette.alternateTextColor} /></FloatingActionButton> : null;
@@ -52,7 +58,7 @@ var PuzzleCard = React.createClass({
 
     continueButton() {
         return this.props.linkToContinue ? <FloatingActionButton
-            backgroundColor={this.context.muiTheme.palette.primary2Color}
+            backgroundColor={this.context.muiTheme.fab.color}
             style={PuzzleCard.styles.fab}
             href={this.props.linkToContinue} >
             <AvPlayCircleOutline color={this.context.muiTheme.palette.alternateTextColor} /></FloatingActionButton> : null;

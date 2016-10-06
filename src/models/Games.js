@@ -14,12 +14,11 @@ export class Games {
         const tilesBoardState = isTilesBoardPreview ? null : (gameState ? gameState.tilesBoardState : null);
         const tilesBoard = new TilesBoardModel().init(puzzle.labels, tilesBoardState);
 
-        return (gameState) ?
-            new GameModel(puzzle, tilesBoard, true, gameState.completed) :
-            new GameModel(puzzle, tilesBoard);
+        const completed = gameState ? gameState.completed : false;
+        return new GameModel(puzzle, tilesBoard, Boolean(gameState), completed);
     }
 
-    restartGame(puzzle){
+    restartGame(puzzle) {
         this.storage.removeGame(puzzle.id);
         //return new GameModel(puzzle,  new TilesBoardModel().init(puzzle.labels));
     }
