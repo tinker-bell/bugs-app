@@ -26,9 +26,8 @@ test('TileBoardModel.constructor', ()=> {
 
 test('TileBoardModel._placeLabels', ()=> {
     var board = new TilesBoardModel(3);
+    board._placeLabels(["G", "F", "E", "D", "C", "B", "A"]);
     var result = board.tiles;
-
-    board._placeLabels(result, ["G", "F", "E", "D", "C", "B", "A"]);
 
     expect(result[0][1].rightLabel).toBe("G");
     expect(result[0][2].leftLabel).toBe("G");
@@ -91,10 +90,10 @@ test('TileBoardModel.getTileNeighbor', ()=> {
     const board = new TilesBoardModel();
     board.init(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A', 'B', 'C', 'D', 'E']);
 
-    expect(board.getTileNeighbor(board.tiles[1][2], "right")).toBe(null);
-    expect(board.getTileNeighbor(board.tiles[1][2], "left")).toBe(board.tiles[1][1]);
-    expect(board.getTileNeighbor(board.tiles[1][2], "top")).toBe(board.tiles[0][2]);
-    expect(board.getTileNeighbor(board.tiles[1][2], "bottom")).toBe(board.tiles[2][2]);
+    expect(board.getTileNeighbor(1, 2, "right")).toBe(null);
+    expect(board.getTileNeighbor(1, 2, "left")).toBe(board.tiles[1][1]);
+    expect(board.getTileNeighbor(1, 2, "top")).toBe(board.tiles[0][2]);
+    expect(board.getTileNeighbor(1, 2, "bottom")).toBe(board.tiles[2][2]);
 });
 
 test('TileBoardModel.init', ()=> {
@@ -147,9 +146,9 @@ test('TileBoardModel.matchedPairsCount', ()=> {
     const labels = ['A', 'B', 'C']; 
     board.init(labels);
     expect(board.pairsToMatchCount).toBe(labels.length);
-    expect(board.matchedPairsCount).toBe(0);
+    expect(board.getMatchedPairsCount()).toBe(0);
     board._orderTiles();
-    expect(board.matchedPairsCount).toBe(labels.length);
+    expect(board.getMatchedPairsCount()).toBe(labels.length);
 });
 
 

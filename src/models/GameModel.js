@@ -10,13 +10,13 @@ class GameModel {
     swapTile(row, column){
         this.tilesBoard.swapWithEmpty(row, column);
         this.started = true;
-        this.matchedPairsCount = this.tilesBoard.getMatchedPairsCount();
-        
+        this.matchedPairsCount = this.tilesBoard.getMatchedPairsCount();        
     }
 
     get completed(){
         return this.tilesBoard.pairsToMatchCount === this.matchedPairsCount;
     }
 };
+
 
 export default GameModel;

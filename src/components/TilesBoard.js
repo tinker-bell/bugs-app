@@ -21,9 +21,8 @@ var TilesBoard = React.createClass({
         var tiles = this.props.gameModel.tilesBoard.getTiles(); 
 
 
-        return <div className="blinkingBorder blinkingBorderTransparent"> <div className={style}>{tiles.map(createTile.bind(this)) }</div></div>;
+        return <div className={style} >{tiles.map(createTile.bind(this)) }</div>;
     },
-
     onSwapTiles(row, column) {
         this.props.gameModel.swapTile(row, column);
         

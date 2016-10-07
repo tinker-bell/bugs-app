@@ -1,10 +1,7 @@
 import React from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Puzzle from '../models/Puzzle'
 import Extension  from 'material-ui/svg-icons/action/extension';
 
-
-const muiTheme = getMuiTheme();
 
 const PuzzleLevelIndicator = React.createClass({
     contextTypes: {

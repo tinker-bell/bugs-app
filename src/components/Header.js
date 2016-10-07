@@ -30,7 +30,6 @@ const Header = React.createClass({
                 </AppBar>
                 <div style={tabsContainerStyle}>
                     <Tabs style={Header.styles.tabs}
-                        tabItemContainerStyle={{ height: '40px' }}
                         value={getActiveTab(this.props.pathname) }>
                         <Tab label={'Новичкам'} value={Puzzle.level.beginner} onActive={this.onBeginnerActive}></Tab>
                         <Tab label={'Опытным'} value={Puzzle.level.master} onActive={this.onMasterActive}></Tab>
@@ -64,12 +63,11 @@ Header.styles = {
     },
 
     tabsContainer: {
-        height: '40px',
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'nowrap',
         justifyContent: 'center',
-        marginBottom: '50px'
+        marginBottom: '40px'
     }
 };
 

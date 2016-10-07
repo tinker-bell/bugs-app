@@ -1,13 +1,11 @@
 import React from 'react';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import AvPlayCircleOutline from 'material-ui/svg-icons/av/play-circle-outline';
-import AvReplay  from 'material-ui/svg-icons/av/replay';
-import AvPlay  from 'material-ui/svg-icons/av/play-arrow';
 import Paper from 'material-ui/Paper';
 import TilesBoard from './TilesBoard';
-import PuzzleLevelIndicator from './PuzzleLevelIndicator';
-import QuaterOverlay from './QuaterOverlay'
-import DoneAll  from 'material-ui/svg-icons/action/done-all';
+import CardOverlay from './CardOverlay'
+import Done  from 'material-ui/svg-icons/action/done';
+import AvReplay  from 'material-ui/svg-icons/av/replay';
+import Puzzle from '../models/Puzzle'
+import UIUtils from './UIUtils'
 
 
 var PuzzleCard = React.createClass({
@@ -16,75 +14,54 @@ var PuzzleCard = React.createClass({
     },
 
     render() {
-        return <div style={{ position: 'relative' }}>
-            <QuaterOverlay value={this.props.puzzleNumber}/>
+        return <div style={{ position: 'relative', margin: '15px' }}>
 
-            <Paper zDepth={1} style={PuzzleCard.styles.paper}>
-
-                <TilesBoard isPreview={true} gameModel={this.props.gameModel} />
-
-                <div style={PuzzleCard.styles.fabContainer}>
-                    {this.replayButton() }
-                    {this.playButton() }
-                    {this.continueButton() }
+            <Paper zDepth={2}>
+                <div style={{ marginBottom: '0px', display: 'flex' }}>
+                    <a href={this.primaryActionLink() }>
+                        <div style={{ backgroundColor: "transparent", width: '100%', height: '100%', position: 'absolute', zIndex: 5 }}></div>
+                    </a>
+                    <TilesBoard isPreview={true} gameModel={this.props.gameModel} />
+                    <CardOverlay value={this.props.puzzleNumber}
+                        secondaryActionLink={this.secondaryActionLink() }
+                        secondaryActionIcon={this.secondaryActionIcon() }
+                        firstLineText={this.firstLineText() }
+                        secondLineIcon={this.secondLineIcon() }
+                        secondLineText={this.secondLineText() } />
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap', alignItems: 'center' }}>
-                    <PuzzleLevelIndicator level={this.props.gameModel.puzzle.level}/>
-                    { this.doneIndicator()} </div>
             </Paper>
         </div>
+    },
+
+    primaryActionLink() {
+        return this.props.linkToContinue ? this.props.linkToContinue : this.props.linkToPlay;
+    },
+
+    secondaryActionLink() {
+        return this.props.linkToReplay;
+    },
+
+    secondaryActionIcon() {
+        return this.props.linkToReplay ? <AvReplay color={this.context.muiTheme.palette.alternateTextColor} /> : null;
+    },
+
+    secondLineIcon() {
+        return this.props.gameModel.completedFromState ? <Done style={{ width: '16px', height: '16px' }} color={this.context.muiTheme.palette.alternateTextColor}/> : null;
+    },
+
+    secondLineText() {
+        return this.props.gameModel.completedFromState ? 'Завершено' : null;
+    },
+
+    firstLineText() {
+        return UIUtils.puzzleTitle(this.props.gameModel.puzzle);
     },
 
     doneIndicator() {
         return this.props.gameModel.completedFromState ? <DoneAll color={this.context.muiTheme.palette.accent1Color} style={{ marginLeft: '15px' }}/> : null;
     },
-
-    // TODO think of smth better
-    replayButton() {
-        return this.props.linkToReplay ? <FloatingActionButton
-            backgroundColor={this.context.muiTheme.fab.color}
-            style={PuzzleCard.styles.fab}
-            href={this.props.linkToReplay} >
-            <AvReplay color={this.context.muiTheme.palette.alternateTextColor} /></FloatingActionButton> : null;
-    },
-
-    playButton() {
-        return this.props.linkToPlay ? <FloatingActionButton
-            backgroundColor={this.context.muiTheme.fab.color}
-            style={PuzzleCard.styles.fab}
-            href={this.props.linkToPlay} >
-            <AvPlay color={this.context.muiTheme.palette.alternateTextColor} /></FloatingActionButton> : null;
-    },
-
-    continueButton() {
-        return this.props.linkToContinue ? <FloatingActionButton
-            backgroundColor={this.context.muiTheme.fab.color}
-            style={PuzzleCard.styles.fab}
-            href={this.props.linkToContinue} >
-            <AvPlayCircleOutline color={this.context.muiTheme.palette.alternateTextColor} /></FloatingActionButton> : null;
-    },
 });
 
-PuzzleCard.styles = {
-    fab: {
-        margin: '-32px 15px 0px 0px',
-    },
-
-    fabContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        padding: '5px'
-    },
-
-    paper: {
-        margin: 15,
-        padding: 10,
-        textAlign: 'left',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-};
 
 
 export default PuzzleCard;

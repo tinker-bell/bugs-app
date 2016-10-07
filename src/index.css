@@ -1,10 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: "Arial", Helvetica, sans-serif;
     -webkit-backface-visibility: hidden;
-    font-size: 14px;
-   
+    font-size: 14px;   
 }
 
 .flexRowWrap{
@@ -24,6 +23,7 @@ body * {
     position: relative;
     width: 33.3%;
     padding-bottom : 33.3%;
+    border-radius: 5px;
     background-color: #81C784;    
 }
 
@@ -36,7 +36,6 @@ body * {
     background: transparent;
     border-color: transparent;
 }
-
 
 .blinkingBorder{
     position: relative;
@@ -54,6 +53,10 @@ body * {
     display: inline-block;
     position: relative;
     user-select: none;    
+    background-color:#81C784;
+    border-radius: 2px;
+
+    overflow: hidden;
 }
 
 .totalPanel{
@@ -62,6 +65,7 @@ body * {
 }
 
 @media all and (max-width: 400px) {
+    .tilesBoardContainer,
     .dndTilesBoard
      {
         height: 280px;
@@ -69,8 +73,13 @@ body * {
     }
 }
 
+.shadowBox{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 6px, rgba(0, 0, 0, 0.2) 0px 1px 4px;
+}
+
 
 @media all and (min-width: 400px) {
+    .tilesBoardContainer,
     .dndTilesBoard{
        height: 60vw;
         width: 60vw;
@@ -105,7 +114,6 @@ body * {
         position: relative;
         height: 300px;
         width: 300px;
-        margin: 0 auto;
     }
 }
 
@@ -191,36 +199,3 @@ body * {
     bottom: 0;
     transform: rotate(90deg) scale(-1, 1) translate(0, -50%);
 }
-
-
-
-/*
-.dndTilesBoard {
-    position: abs;
-    
-width: 100%;
-    height: 100%;
-   
- background-color: #81C784;
-    
-border-radius: 3px;
-    
-padding: 4px;
-    
-user-select: none;
-}
-
-
-.tile,
-.emptyTile {   
- position: relative;    
-width: 33.3%;   
- height: 33.3%;
- float: left;    
-border-width: 1px;  
-  border-style: solid;
-   border-color: #81C784;   
- border-radius: 5px;    
-box-sizing: border-box;
-}
-*/

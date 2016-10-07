@@ -1,12 +1,11 @@
 import React from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import {deepOrange500} from 'material-ui/styles/colors';
 
 const muiTheme = getMuiTheme();
 
 const NotFound = React.createClass({
     render(){
-        return <div>{'Not Found'}</div>;
+        return <div style={{display: 'flex', justifyContent:'center', alignItems:'center', color: deepOrange500, fontSize: '36px'}}>{'Not Found'}</div>;
     }
 });
 
