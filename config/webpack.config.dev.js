@@ -51,7 +51,7 @@ module.exports = {
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    filename: 'js/bundle.js',
     // In development, we always serve from the root. This makes config easier.
     publicPath: '/'
   },
@@ -121,7 +121,7 @@ module.exports = {
         exclude: /\/favicon.ico$/,
         loader: 'file',
         query: {
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: 'images/[name].[hash:8].[ext]'
         }
       },
       // A special case for favicon.ico to place it into build root directory.
@@ -140,7 +140,7 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
+          name: 'images/[name].[hash:8].[ext]'
         }
       },
       // "html" loader is used to process template page (index.html) to resolve
