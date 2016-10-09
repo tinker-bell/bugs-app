@@ -6,12 +6,8 @@ body {
     font-size: 14px;   
 }
 
-.flexRowWrap{
-    display: 'flex';
-    flex-direction: 'row';
-    flex-wrap: 'wrap';
-    justify-content: center;
-      align-items: center;
+@-ms-viewport {
+	width: device-width;
 }
 
 body * {
@@ -27,27 +23,6 @@ body * {
     background-color: #81C784;    
 }
 
-.blinkingBorderColor{
-    background:  orange;
-    border-color: orange;
-}
-
-.blinkingBorderTransparent{
-    background: transparent;
-    border-color: transparent;
-}
-
-.blinkingBorder{
-    position: relative;
-    padding: 5px;
-
-    border-radius: 10px;
-    border-style: solid;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .dndTilesBoard, 
 .dndTilesBoardThumbnail {
     display: inline-block;
@@ -55,7 +30,6 @@ body * {
     user-select: none;    
     background-color:#81C784;
     border-radius: 2px;
-
     overflow: hidden;
 }
 
@@ -94,7 +68,6 @@ body * {
     }    
 }
 
-
 @media all and (max-width: 400px) {
     .dndTilesBoardThumbnail {
         height: 250px;
@@ -115,6 +88,10 @@ body * {
         height: 300px;
         width: 300px;
     }
+}
+
+.draggable{
+    cursor: pointer;
 }
 
 .tile,
@@ -159,15 +136,8 @@ body * {
   }
 }
 
-
-.draggable {
-}
-
 .draggingTile {
     opacity: 0.7;
-}
-
-.dragOver{
 }
 
 .rightImage, .topImage, .leftImage, .bottomImage{

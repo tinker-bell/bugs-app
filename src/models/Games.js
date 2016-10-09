@@ -14,7 +14,7 @@ export class Games {
         const tilesBoardState = isTilesBoardPreview ? null : (gameState ? gameState.tilesBoardState : null);
         const tilesBoard = new TilesBoardModel().init(puzzle.labels, tilesBoardState);
 
-        const completed = gameState ? gameState.completed : false;
+        const completed = !!gameState && gameState.completed;
         return new GameModel(puzzle, tilesBoard, Boolean(gameState), completed);
     }
 

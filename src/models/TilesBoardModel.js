@@ -1,5 +1,6 @@
 import TileModel from './TileModel'
 import {Iter} from '../Utils'
+import {Label} from './Puzzle'
 
 class TilesBoardModel {
     constructor(boardSize = 3) {
@@ -11,9 +12,9 @@ class TilesBoardModel {
 
     init(labels, state = null) {
         this.labels = labels;
-        this.pairsToMatchCount = labels.filter(x => x !== null).length;
+        this.pairsToMatchCount = labels.filter(x => x !== Label.empty).length;
         this._placeLabels(labels);
-        this.tiles = (state === null) ? this._mixTiles(this.tiles) : this._mixTilesByState(this.tiles, state);
+        this.tiles = state ? this._mixTilesByState(this.tiles, state) : this._mixTiles(this.tiles);
 
         return this;
     }
@@ -224,20 +225,20 @@ class TilesBoardModel {
                 }
 
                 var label = labelsReversed.pop();
-                if (label === undefined) {
+                if (!label) {
                     break;
                 }
-                if (label === null) {
+                if (label === "X") {
                     continue;
                 }
 
                 var rightTile = this.getTileNeighbor(row, column, "right");
-                if (rightTile !== null) {
+                if (rightTile) {
                     tile.rightLabel = label;
                     rightTile.leftLabel = label;
                 } else {
                     var bottomTile = this.getTileNeighbor(row, column, "bottom");
-                    if (bottomTile !== null) {
+                    if (bottomTile) {
                         tile.bottomLabel = label;
                         bottomTile.topLabel = label;
                     }

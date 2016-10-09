@@ -2,9 +2,8 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import TilesBoard from './TilesBoard';
 import CardOverlay from './CardOverlay'
-import Done  from 'material-ui/svg-icons/action/done';
+import DoneAll  from 'material-ui/svg-icons/action/done-all';
 import AvReplay  from 'material-ui/svg-icons/av/replay';
-import Puzzle from '../models/Puzzle'
 import UIUtils from './UIUtils'
 
 
@@ -46,7 +45,7 @@ var PuzzleCard = React.createClass({
     },
 
     secondLineIcon() {
-        return this.props.gameModel.completedFromState ? <Done style={{ width: '16px', height: '16px' }} color={this.context.muiTheme.palette.alternateTextColor}/> : null;
+        return this.props.gameModel.completedFromState ? <DoneAll style={{ width: '16px', height: '16px' }} color={this.context.muiTheme.palette.alternateTextColor}/> : null;
     },
 
     secondLineText() {
@@ -55,10 +54,6 @@ var PuzzleCard = React.createClass({
 
     firstLineText() {
         return UIUtils.puzzleTitle(this.props.gameModel.puzzle);
-    },
-
-    doneIndicator() {
-        return this.props.gameModel.completedFromState ? <DoneAll color={this.context.muiTheme.palette.accent1Color} style={{ marginLeft: '15px' }}/> : null;
     },
 });
 

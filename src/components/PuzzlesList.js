@@ -38,6 +38,9 @@ const PuzzlesList = React.createClass({
                     linkToReplay={linkToReplay}
                     linkToContinue={linkToContinue}
                     puzzleNumber={game.puzzle.num}/>;
+                if (!!i && !!(i % 2)) {
+                    yield <div style={{ width: '100%' }} key={key++}/>
+                }
             }
         };
 

@@ -32,22 +32,15 @@ var Tile = React.createClass({
             }
         };
 
-        var class_name = "tile";
-        if (tile.isEmpty) {
-            class_name = " emptyTile";
-        }
-        else if (this.state.isDragging) {
+        var class_name = tile.isEmpty ? "emptyTile" : "tile";
+        if (this.props.isDraggable){
+            class_name += " draggable";
+        }        
+        if (this.state.isDragging) {
             class_name += " draggingTile";
         }
-        else if (this.props.isDraggable) {
-            class_name += " draggable";
-        }
-        if (this.isDragOver) {
-            class_name += " dragOver";
-        }
-
         if (tile.showMatch) {
-            class_name += " matchedTile";            
+            class_name += " matchedTile";
         }
 
         var isPreview = this.props.isPreview;
@@ -66,8 +59,6 @@ var Tile = React.createClass({
             </div>
         </div >;
     },
-
-
 
     onClick(ev) {
         if (this.props.isDraggable) {
@@ -91,7 +82,6 @@ var Tile = React.createClass({
         if (this.props.tile.isEmpty || this.state.isDragging) {
             ev.preventDefault();
         }
-        //this.setState({isDragOver: true});
     },
 
     onDragEnter(ev) {

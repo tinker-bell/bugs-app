@@ -34,12 +34,10 @@ const GameView = React.createClass({
         </div>
     },
 
-    onRestartGameClick(e) {
+    onRestartGameClick() {
         if (this.props.restartGame) {
             this.props.restartGame(this.props.gameModel.puzzle);
         }
-        console.log(e);
-        e.preventDefault();
     },
 
     onTilesSwap() {

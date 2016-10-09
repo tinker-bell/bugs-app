@@ -2,7 +2,6 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Header from './components/Header'
-import {fade} from 'material-ui/utils/colorManipulator';
 import { green700, green600, deepOrange500} from 'material-ui/styles/colors';
 
 

@@ -18,11 +18,11 @@ var TilesBoard = React.createClass({
         };
 
         var style = this.props.isPreview ? "dndTilesBoardThumbnail" : "dndTilesBoard";
-        var tiles = this.props.gameModel.tilesBoard.getTiles(); 
-
+        var tiles = this.props.gameModel.tilesBoard.getTiles();
 
         return <div className={style} >{tiles.map(createTile.bind(this)) }</div>;
     },
+
     onSwapTiles(row, column) {
         this.props.gameModel.swapTile(row, column);
         
