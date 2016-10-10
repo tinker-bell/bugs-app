@@ -22,6 +22,7 @@ var PlayGame = React.createClass({
     render() {
         const params = this.props.params;
         const games  = this.props.games;
+        console.log(params);
         if (!params || (!params.level && !params.puzzleNumber)){
             return this.renderGame(games.resumeLastOrDefaultGame());
         }
