@@ -3,8 +3,8 @@ import Puzzle from '../Puzzle'
 import GameModel from '../GameModel'
 
 test('Game.isValidAction', () => {
-    expect(Games.isValidAction('play')).toBe(true);
-    expect(Games.isValidAction('continue')).toBe(true);
+    expect(Games.isValidAction('restart')).toBe(true);
+    expect(Games.isValidAction('continue')).toBe(false);
     expect(Games.isValidAction('xxx')).toBe(false);
     expect(Games.isValidAction(null)).toBe(false);
     expect(Games.isValidAction(undefined)).toBe(false);

@@ -78,12 +78,6 @@ const GameView = React.createClass({
 });
 
 GameView.styles = {
-    bottomPanel: {
-        // display: 'flex',
-        // justifyContent: 'flex-end',
-        // marginTop: '16px',
-        // alignItems: 'center',
-    },
     total: {
         color: deepOrange500,
         fontSize: '2.5em',

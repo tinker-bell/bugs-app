@@ -19,11 +19,28 @@ var PlayGame = React.createClass({
         };
     },
 
+    componentWillMount() {
+        this.tryToRedirect(this.props.params);
+    },
+
+    componentWillReceiveProps(nextProps) {
+        this.tryToRedirect(nextProps.params);
+    },
+
+    tryToRedirect(params) {
+        if (!params.level || !params.puzzleNumber) {
+            const game = this.props.games.resumeLastOrDefaultGame();
+            if (game) {
+                this.context.router.push('/' + game.puzzle.level + '/' + game.puzzle.num);
+            }
+        }
+    },
+
     render() {
         const params = this.props.params;
-        const games  = this.props.games;
+        const games = this.props.games;
         console.log(params);
-        if (!params || (!params.level && !params.puzzleNumber)){
+        if (!params || (!params.level && !params.puzzleNumber)) {
             return this.renderGame(games.resumeLastOrDefaultGame());
         }
 
@@ -49,7 +66,7 @@ var PlayGame = React.createClass({
         </div>;
     },
 
-    onSaveGame(gameModel){
+    onSaveGame(gameModel) {
         this.props.games.saveGame(gameModel);
     },
 
