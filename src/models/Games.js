@@ -9,6 +9,12 @@ export class Games {
         this.storage = storage;
     }
 
+    resumeLastOrDefaultGame(){
+        const lastPuzzleId = this.storage.getLastPuzzle();
+        var puzzle = Puzzle.getById(lastPuzzleId);
+        return puzzle ? this.resumeGame(puzzle, false) : this.resumeGame(Puzzle.default, false);
+    }
+
     resumeGame(puzzle, isTilesBoardPreview) {
         const gameState = this.storage.getGame(puzzle.id);
         const tilesBoardState = isTilesBoardPreview ? null : (gameState ? gameState.tilesBoardState : null);
@@ -25,6 +31,7 @@ export class Games {
 
     saveGame(gameModel) {
         this.storage.saveGame(gameModel);
+        this.storage.saveLastPuzzle(gameModel.puzzle.id);
     }
 
     gamesForLevel(level, isPreview) {
@@ -39,8 +46,7 @@ export class Games {
 };
 
 Games.action = {
-    play: 'play',
-    continue: 'continue',
+    restart: 'restart',
 }
 
 export default Games;

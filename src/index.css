@@ -33,12 +33,45 @@ body * {
     overflow: hidden;
 }
 
-.totalPanel{
-    display: flex;
-    padding: 15px;
+.shadowBox{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 6px, rgba(0, 0, 0, 0.2) 0px 1px 4px;
 }
 
-@media all and (max-width: 400px) {
+
+.gameViewContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+@media all and (min-width: 400px) {
+    .dndTilesBoardThumbnail {
+        position: relative;
+        height: 300px;
+        width: 300px;
+    }    
+    .tilesBoardContainer,
+    .dndTilesBoard{
+       height: 60vw;
+        width: 60vw;
+        max-width: 400px;
+        max-height: 400px;
+    }
+.totalPanel{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 15px;
+    }
+    .score{
+        margin-top: 20px;
+    }
+               
+}
+
+@media all and (max-width: 700px) and (min-height: 300px){
+    .gameViewContainer{
+        flex-direction: row;
+    }
     .tilesBoardContainer,
     .dndTilesBoard
      {
@@ -47,47 +80,32 @@ body * {
     }
 }
 
-.shadowBox{
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 6px, rgba(0, 0, 0, 0.2) 0px 1px 4px;
-}
 
-
-@media all and (min-width: 400px) {
-    .tilesBoardContainer,
-    .dndTilesBoard{
-       height: 60vw;
-        width: 60vw;
-        max-width: 400px;
-        max-height: 400px;
-    }
-    .totalPanel{
+@media all and (max-width: 400px){
+    .gameViewContainer{
         flex-direction: column;
-        justify-content: space-around;        
-        align-items: center;
-        height: 170px;
-    }    
-}
-
-@media all and (max-width: 400px) {
+    }
+    .tilesBoardContainer,
+    .dndTilesBoard
+     {
+        height: 280px;
+        width: 280px;
+    }
     .dndTilesBoardThumbnail {
         height: 250px;
         width: 250px;
     }
    .totalPanel{
-        flex-direction: row;
-        justify-content: space-around;
+        display: flex;
+        margin-top: 15px;
+        flex-direction: row-reverse;
         align-items: center;
-        width: 170px;
-    }    
-}
-
-
-@media all and (min-width: 400px) {
-    .dndTilesBoardThumbnail {
-        position: relative;
-        height: 300px;
-        width: 300px;
+        margin-left: 0px;
     }
+    .score{
+        margin-top: 0px;
+        margin-right: 20px;
+    }    
 }
 
 .draggable{

@@ -1,13 +1,14 @@
 import Puzzle from '../models/Puzzle'
+import Games from '../models/Games'
 
 class UIUtils {
 
-    static linkToPlayGame(puzzle) {
-        return '#/' + puzzle.level + '/' + puzzle.num + '/play';
+    static linkToRestartGame(puzzle) {
+        return puzzle ? '#/' + puzzle.level + '/' + puzzle.num + '/' + Games.action.restart : null;
     }
 
-    static linkToContinue(puzzle) {
-        return '#/' + puzzle.level + '/' + puzzle.num + '/continue';
+    static linkToPlayGame(puzzle) {
+        return puzzle ? '#/' + puzzle.level + '/' + puzzle.num : null;
     }
 
     static puzzleTitle(puzzle) {

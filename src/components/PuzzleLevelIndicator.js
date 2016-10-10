@@ -1,6 +1,6 @@
 import React from 'react';
 import Puzzle from '../models/Puzzle'
-import Extension  from 'material-ui/svg-icons/action/extension';
+import FontIcon from 'material-ui/FontIcon';
 
 
 const PuzzleLevelIndicator = React.createClass({
@@ -9,9 +9,9 @@ const PuzzleLevelIndicator = React.createClass({
     },
 
     render() {
-        var iconColor = this.context.muiTheme.palette.primary2Color;
+        var iconColor = this.props.color ? this.props.color : this.context.muiTheme.palette.alternateTextColor; 
         return <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'no-wrap' }}>
-            { this.getIndicatorStyles(this.props.level).map(x => <Extension color={iconColor}  style={x[1]} key={x[0]}/>) }
+            { this.getIndicatorStyles(this.props.level).map(x => <FontIcon className="material-icons" color={iconColor}  style={x[1]} key={x[0]}>bug_report</FontIcon>) }
         </div>
     },
 

@@ -68,7 +68,8 @@ CardOverlay.styles = {
         color: white,
         fontSize: '18px',
         marginTop: '16px',
-        marginLeft: '16px'
+        marginLeft: '16px',
+        display: 'flex'
     },
     secondLineText: {
         color: white,

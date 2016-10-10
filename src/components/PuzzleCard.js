@@ -4,7 +4,7 @@ import TilesBoard from './TilesBoard';
 import CardOverlay from './CardOverlay'
 import DoneAll  from 'material-ui/svg-icons/action/done-all';
 import AvReplay  from 'material-ui/svg-icons/av/replay';
-import UIUtils from './UIUtils'
+import PuzzleLevelIndicator from './PuzzleLevelIndicator'
 
 
 var PuzzleCard = React.createClass({
@@ -17,12 +17,12 @@ var PuzzleCard = React.createClass({
 
             <Paper zDepth={2}>
                 <div style={{ marginBottom: '0px', display: 'flex' }}>
-                    <a href={this.primaryActionLink() }>
+                    <a href={this.props.linkToPlay }>
                         <div style={{ backgroundColor: "transparent", width: '100%', height: '100%', position: 'absolute', zIndex: 5 }}></div>
                     </a>
                     <TilesBoard isPreview={true} gameModel={this.props.gameModel} />
                     <CardOverlay value={this.props.puzzleNumber}
-                        secondaryActionLink={this.secondaryActionLink() }
+                        secondaryActionLink={this.props.linkToRestart }
                         secondaryActionIcon={this.secondaryActionIcon() }
                         firstLineText={this.firstLineText() }
                         secondLineIcon={this.secondLineIcon() }
@@ -32,16 +32,8 @@ var PuzzleCard = React.createClass({
         </div>
     },
 
-    primaryActionLink() {
-        return this.props.linkToContinue ? this.props.linkToContinue : this.props.linkToPlay;
-    },
-
-    secondaryActionLink() {
-        return this.props.linkToReplay;
-    },
-
     secondaryActionIcon() {
-        return this.props.linkToReplay ? <AvReplay color={this.context.muiTheme.palette.alternateTextColor} /> : null;
+        return this.props.linkToRestart ? <AvReplay color={this.context.muiTheme.palette.alternateTextColor} /> : null;
     },
 
     secondLineIcon() {
@@ -49,11 +41,12 @@ var PuzzleCard = React.createClass({
     },
 
     secondLineText() {
-        return this.props.gameModel.completedFromState ? 'Завершено' : null;
+    return this.props.gameModel.completedFromState ? 'Завершено' : null;
     },
 
     firstLineText() {
-        return UIUtils.puzzleTitle(this.props.gameModel.puzzle);
+        return <div style={{display: 'flex', alignItems: 'center'}} ><span>{this.props.gameModel.puzzle.num}&nbsp;</span> <PuzzleLevelIndicator level={'beginner'}/></div>
+        //return UIUtils.puzzleTitle(this.props.gameModel.puzzle);
     },
 });
 

@@ -22,6 +22,15 @@ export class GameStorage {
     removeGame(puzzleId){
         this.storage.removeItem(puzzleId);
     }
+
+    saveLastPuzzle(puzzleId) {
+        this.storage.setItem("lastPuzzleId", JSON.stringify(puzzleId));
+    }
+    
+    getLastPuzzle() {
+        var jsonId = this.storage.getItem("lastPuzzleId");     
+        return JSON.parse(jsonId);
+    }
 }
 
 export default GameStorage;

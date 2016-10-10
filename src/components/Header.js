@@ -67,7 +67,7 @@ Header.styles = {
         flexDirection: 'row',
         flexWrap: 'nowrap',
         justifyContent: 'center',
-        marginBottom: '40px'
+        marginBottom: '15px'
     }
 };
 

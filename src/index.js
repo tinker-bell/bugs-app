@@ -12,7 +12,7 @@ injectTapEventPlugin();
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={PuzzlesList} />) } />
+      <IndexRoute component={PlayGame} />) } />
       <Route path='/:level' component={ PuzzlesList } />
       <Route path='/:level/:puzzleNumber' component={PlayGame}  />
       <Route path='/:level/:puzzleNumber/:action' component={PlayGame}  />

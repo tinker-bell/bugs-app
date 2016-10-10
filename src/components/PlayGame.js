@@ -21,31 +21,38 @@ var PlayGame = React.createClass({
 
     render() {
         const params = this.props.params;
+        const games  = this.props.games;
+        if (!params || (!params.level && !params.puzzleNumber)){
+            return this.renderGame(games.resumeLastOrDefaultGame());
+        }
+
         const action = params && params.action;
         const level = params && params.level;
         const puzzleNumber = params && params.puzzleNumber;
 
-        if (!Games.isValidAction(action) || !Puzzle.isValidPuzzleNumber(level, puzzleNumber)) {
+        if (!Puzzle.isValidPuzzleNumber(level, puzzleNumber)) {
             return <NotFound/>;
         }
 
         var puzzle = Puzzle.get(level, puzzleNumber);
-        if (action === Games.action.play) {
+        if (action === Games.action.restart) {
             this.props.games.restartGame(puzzle);
         }
 
-        var game = this.props.games.resumeGame(puzzle, false);
-
-        return (<div style={PlayGame.styles.container}>
-                <GameView gameModel={game} tilesSwap={this.onTilesSwap} restartGame={this.onRestartGame}/>
-                </div>);
+        return this.renderGame(games.resumeGame(puzzle, false));
     },
 
-    onTilesSwap(gameModel) {
-        this.props.games.saveGame(gameModel)
+    renderGame(game) {
+        return <div style={PlayGame.styles.container}>
+            <GameView gameModel={game} tilesSwap={this.onSaveGame} restartGame={this.onRestartGame} saveLastGame={this.onSaveGame}/>
+        </div>;
     },
 
-    onRestartGame(puzzle){
+    onSaveGame(gameModel){
+        this.props.games.saveGame(gameModel);
+    },
+
+    onRestartGame(puzzle) {
         this.props.games.restartGame(puzzle);
         this.forceUpdate();
     }
@@ -58,6 +65,7 @@ PlayGame.styles = {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        marginBottom: '50px',
     },
     breakLine: {
         width: '100%',
