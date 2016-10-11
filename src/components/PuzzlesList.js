@@ -41,8 +41,7 @@ const PuzzlesList = React.createClass({
                     title="#1"
                     isThumbnail={true}
                     linkToPlay={linkToPlay}
-                    linkToRestart={linkToRestart}
-                    puzzleNumber={game.puzzle.num}/>;
+                    linkToRestart={linkToRestart}/>;
                 if (!!i && !!(i % 2)) {
                     yield <div style={{ width: '100%' }} key={key++}/>
                 }

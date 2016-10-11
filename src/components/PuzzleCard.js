@@ -21,7 +21,7 @@ var PuzzleCard = React.createClass({
                         <div style={{ backgroundColor: "transparent", width: '100%', height: '100%', position: 'absolute', zIndex: 5 }}></div>
                     </a>
                     <TilesBoard isPreview={true} gameModel={this.props.gameModel} />
-                    <CardOverlay value={this.props.puzzleNumber}
+                    <CardOverlay 
                         secondaryActionLink={this.props.linkToRestart }
                         secondaryActionIcon={this.secondaryActionIcon() }
                         firstLineText={this.firstLineText() }
@@ -41,11 +41,14 @@ var PuzzleCard = React.createClass({
     },
 
     secondLineText() {
-    return this.props.gameModel.completedFromState ? 'Завершено' : null;
+        return this.props.gameModel.completedFromState ? 'Завершено' : null;
     },
 
     firstLineText() {
-        return <div style={{display: 'flex', alignItems: 'center'}} ><span>{this.props.gameModel.puzzle.num}&nbsp;</span> <PuzzleLevelIndicator level={'beginner'}/></div>
+        return <div style={{ display: 'flex', alignItems: 'center' }} >
+            <span>{this.props.gameModel.puzzle.num}&nbsp; </span>
+            <PuzzleLevelIndicator level={this.props.gameModel.puzzle.level}/>
+        </div>
         //return UIUtils.puzzleTitle(this.props.gameModel.puzzle);
     },
 });
